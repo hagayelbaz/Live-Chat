@@ -1,0 +1,192 @@
+/*variables*/
+:root{
+    /*--primary-bg: #283c38;*/
+    --primary-bg: #1b2223 ;
+    --secondary-bg: #3a4f50;
+    --accent-bg: #0ef6cc;
+    --accent-bg2: #f4fefd;
+
+    --primary-text: #f4fefd;
+    --secondary-text: #f4fefd;
+    --accent-text: #1b2223;
+    --accent-text2: #f4fefd;
+
+    --primary-opacity: 0.6;
+    --secondary-opacity: 0.5;
+    --accent-opacity: 0.7;
+
+    /** special for border */
+    --primary-border: #1b2223;
+    --secondary-border: #3a4f50;
+    --accent-border: #0ef6cc;
+    --accent-border2: #f4fefd;
+
+    --image-path: url("/images/home-image.svg");
+}
+
+.bubble-chat{
+    border-radius: 17px !important;
+    box-shadow: 0 0 18px rgba(0,0,0,0.6);
+}
+.bubble-me * .bubble-chat{
+    background-color: var(--primary-bg) !important;
+    color: var(--primary-text) !important;
+}
+
+.bubble-other * .bubble-chat{
+    background-color: var(--accent-bg) !important;
+    color: var(--accent-text) !important;
+}
+
+
+/* bg */
+.primary-bg{
+    background-color: var(--primary-bg) !important;
+}
+.secondary-bg{
+    background-color: var(--secondary-bg) !important;
+}
+.accent-bg{
+    background-color: var(--accent-bg) !important;
+}
+.accent-bg2{
+    background-color: var(--accent-bg2) !important;
+}
+/*text*/
+.primary-text{
+    color: var(--primary-text) !important;
+}
+.secondary-text{
+    color: var(--secondary-text) !important;
+}
+.accent-text{
+    color: var(--accent-text) !important;
+}
+/*text-with-color*/
+.primary-text-color{
+    color: var(--primary-bg) !important;
+}
+.secondary-text-color{
+    color: var(--secondary-bg) !important;
+}
+.accent-text-color{
+    color: var(--accent-bg) !important;
+}
+
+/*border*/
+.primary-border{
+    border-color: var(--primary-border)  !important;
+    border-width: 1px !important;
+    border-radius: 4px !important;
+    border-style: solid !important;
+}
+.secondary-border{
+    border-color: var(--secondary-border)  !important;
+    border-width: 1px !important;
+    border-radius: 4px !important;
+    border-style: solid !important;
+}
+.accent-border{
+    border-color: var(--accent-border)  !important;
+    border-width: 1px !important;
+    border-radius: 4px !important;
+    border-style: solid !important;
+}
+/*hr*/
+.primary-hr{
+    border-color: var(--primary-bg) !important;
+    opacity: var(--primary-opacity);
+    border-width: 1px !important;
+    border-radius: 1px !important;
+    border-style: solid !important;
+}
+.secondary-hr{
+    border-color: var(--secondary-bg) !important;
+    opacity: var(--secondary-opacity);
+    border-width: 1px !important;
+    border-radius: 1px !important;
+    border-style: solid !important;
+}
+.accent-hr {
+    border-color: var(--accent-bg) !important;
+    opacity: var(--accent-opacity);
+    border-width: 1px !important;
+    border-radius: 1px !important;
+    border-style: solid !important;
+}
+/* images */
+.img-primary-bg {
+    background-image: var(--image-path) !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-position: center !important;
+    min-height: 100% !important;
+}
+
+/*buttons*/
+.primary-bg-button{
+    background-color: var(--primary-bg) !important;
+}
+.primary-bg-button:hover{
+    transition: 0.3s;
+    background-color: var(--primary-bg) !important;
+    opacity: var(--primary-opacity);
+}
+.secondary-bg-button{
+    background-color: var(--secondary-bg) !important;
+}
+.secondary-bg-button:hover{
+    transition: 0.3s;
+    background-color: var(--secondary-bg) !important;
+    opacity: var(--secondary-opacity);
+}
+.accent-bg-button{
+    background-color: var(--accent-bg) !important;
+}
+.accent-bg-button:hover{
+    transition: 0.3s;
+    background-color: var(--accent-bg) !important;
+    opacity: var(--accent-opacity);
+}
+/*shadow*/
+.primary-shadow{
+    box-shadow: 0 0 10px var(--primary-bg) !important;
+}
+.secondary-shadow{
+    box-shadow: 0 0 10px var(--secondary-bg) !important;
+}
+.accent-shadow{
+    box-shadow: 0 0 10px var(--accent-bg) !important;
+}
+
+/* scroll bar style */
+/* width */
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 20px;
+    background: var(--primary-bg);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background: var(--accent-bg);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-bg);
+    opacity: var(--accent-opacity);
+}
+
+/*modal*/
+.modal-content  {
+    -webkit-border-radius: 7px !important;
+    -moz-border-radius: 7px !important;
+    border-radius: 7px !important;
+}
+

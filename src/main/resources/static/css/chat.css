@@ -1,0 +1,16 @@
+.chat-border{
+    border: 1px solid #4daefe;
+}
+
+.chat-bg{
+    background-image: url("../images/chat.svg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.chat-input-holder > input{
+    border-radius: 10px !important;
+    border: 2px solid #4daefe !important;
+    box-shadow: 0 0 14px rgba(0,0,0,0.4);
+}

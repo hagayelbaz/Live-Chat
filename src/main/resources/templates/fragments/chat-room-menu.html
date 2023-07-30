@@ -1,0 +1,18 @@
+<li th:fragment="chat-room-menu (chat_name, chat_id)" class="secondary-bg-button secondary-text list-group person-menu">
+    <input type="hidden" th:value="${chat_id}" class="chat-room-id">
+
+    <div class="pt-3 pb-2">
+        <a href="#" class="nav-link m-0 p-0 ps-2">
+            <div class="d-flex">
+                <div class="d-inline-flex primary-text justify-content-center align-items-center circle">
+                    <span th:text="${chat_name.substring(0, 2).toUpperCase().toUpperCase()}"></span>
+                </div>
+                <div class="ms-4">
+                    <p class="fw-bold m-0 p-0 chat-name primary-text" th:text="${chat_name}"></p>
+                </div>
+            </div>
+
+        </a>
+    </div>
+    <hr class="p-0 m-0"/>
+</li>

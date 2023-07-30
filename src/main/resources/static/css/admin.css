@@ -1,0 +1,12 @@
+
+#request-body, #request-body * {
+    font-family: monospace !important;
+    height: 190px;
+}
+.flex-container {
+    height: 100vh; /* Or set to the height of your container */
+}
+
+.flex-grow-1 {
+    flex-grow: 1;
+}

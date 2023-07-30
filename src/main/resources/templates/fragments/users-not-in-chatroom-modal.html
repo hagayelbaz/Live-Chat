@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>Header</title></head>
+<body>
+
+<div th:fragment="users-not-in-chatroom-modal" class="modal fade" id="users-not-in-chatroom-modal" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- the Modal -->
+    <div class="modal-dialog primary-bg">
+        <div th:replace="~{fragments/Error :: error-fragment}"></div>
+        <div class="modal-content bg-transparent" style="border-radius: 10px">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 primary-text" id="exampleModalLabel">Users</h1>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="overflow-auto" style="overflow-y: auto; max-height: 450px;">
+                    <div id="not-connected-users">
+                        <!-- Autofill from server -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
+

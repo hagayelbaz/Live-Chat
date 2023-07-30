@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/css/color-set.css}"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Bitter:wght@350&display=swap" rel="stylesheet">
+
+    <title>Live Chat</title>
+</head>
+
+<body class="primary-bg" style="overflow: hidden">
+
+<div th:if="${param.error}"
+     class="alert alert-danger alert-dismissible fade show fixed-top text-center" role="alert">
+    <strong>Error!</strong> <span th:text="${param.error}"></span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<div class="container-fluid p-0 m-0 position-relative">
+    <div class="bg-transparent" th:replace="~{fragments/header.html :: header}"></div>
+
+    <div class="container-fluid img-primary-bg primary-text" style="height: calc(100vh - 50px);">
+
+        <div class="row pt-5">
+            <div class="col-lg-2"></div>
+            <div class="col">
+                <h1 class="display-3">Welcome to Live Chat</h1>
+
+                <p class="mt-5 col-lg-7 col-xl-5 lead">Connect, communicate, and collaborate with Live Chat, your go-to
+                    platform for real-time
+                    conversations. Our intuitive design and powerful features make it effortless to stay in touch with
+                    your network.</p>
+
+                <a href="/chat-room" class="btn accent-bg-button accent-text mb-5 ps-5 pe-5 mt-2">Get Started</a>
+                <p class="">You don't have an account? <a class="primary-text" href="/auth/register">Register now!</a>
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

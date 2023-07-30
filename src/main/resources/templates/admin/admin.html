@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html class="secondary-bg" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+
+
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/css/color-set.css}"/>
+    <link rel="stylesheet" th:href="@{/css/chat-room.css}"/>
+    <link rel="stylesheet" th:href="@{/css/chat.css}"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Bitter:wght@350&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+    <script type="module" th:src="@{/script/ApiCalls/CallsHelper.js}"></script>
+    <script type="module" th:src="@{/script/ApiCalls/ChatRoomCalls.js}"></script>
+    <script type="module" th:src="@{/script/ApiCalls/MessagesCalls.js}"></script>
+    <script type="module" th:src="@{/script/ApiCalls/UsersCalls.js}"></script>
+    <script type="module" th:src="@{/script/admin.js}"></script>
+    <script type="module" th:src="@{/script/ErrorManager.js}"></script>
+    <script type="module" th:src="@{/script/ChatRoom/HashColor.js}"></script>
+    <script type="module" th:src="@{/script/ChatRoom/Service.js}"></script>
+    <script type="module" th:src="@{/script/ChatRoom/Variables.js}"></script>
+    <script type="module" th:src="@{/script/ChatRoom/MessageTemplate.js}"></script>
+
+
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/css/color-set.css}"/>
+    <link rel="stylesheet" th:href="@{/css/admin.css}"/>
+
+    <title>Admin</title>
+</head>
+<body class="img-primary-bg">
+
+<div th:if="${param.error}"
+     class="alert alert-danger alert-dismissible fade show fixed-top text-center" role="alert">
+    <strong>Error!</strong> <span th:text="${param.error}"></span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<div th:object="${admin}" class="">
+    <input type="hidden" id="admin-mail" th:value="*{email}">
+
+    <div class="admin-header">
+        <div class="d-flex justify-content-between align-items-center primary-bg p-2">
+            <h1 class="primary-text" th:text="(*{firstname} + ' ' + *{lastname} + ' (in admin zone)')"></h1>
+            <a href="/chat-room" class="btn accent-text accent-bg-button" type="button">Chat Room</a>
+        </div>
+    </div>
+
+    <div class="container-fluid admin-content overflow-auto">
+        <div class="row mt-4">
+            <div class="row-1 row p-0 m-0">
+                <div class="">
+                    <div class="form-group row align-items-center">
+                        <label for="request-input" class="col-sm-2 col-form-label primary-text">Make a request</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="request-input"
+                                   placeholder="for example: api/users">
+                        </div>
+                        <div class="col-sm-3 d-flex justify-content-between mt-3 mt-sm-0">
+                            <select class="form-select accent-bg-button" id="request-select">
+                                <option selected value="1">GET</option>
+                                <option value="2">POST</option>
+                                <option value="3">DELETE</option>
+                            </select>
+                            <button id="make-request-button" type="button"
+                                    class="btn primary-bg-button primary-text ms-2">Send
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row-2 row p-0 m-0">
+                <div class="col-sm-12 col-md-6 mt-md-5 mt-2">
+                    <div>
+                        <label for="request-body" class="primary-text">Body:</label>
+                        <div id="request-body" class="primary-bg primary-text form-control "></div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 mt-md-5 mt-2">
+                    <div>
+                        <label class="primary-text">endpoints</label>
+                        <div style="height: 190px; overflow-y: auto"
+                             class="primary-bg primary-text form-control">
+                            <details>
+                                <summary>GET endpoints</summary>
+                                <ul>
+                                    <li><code class="endpoint" role="button">api/users</code> - list of all users</li>
+                                    <li><code class="endpoint" role="button">api/users/email/{email}</code> - find user by email</li>
+                                    <li><code class="endpoint" role="button">api/users/id/{userId}</code> - find user by id</li>
+                                    <hr/>
+                                    <li><code class="endpoint" role="button">/api/chatroom</code> - get all chat-rooms</li>
+                                    <li><code class="endpoint" role="button">/api/chatroom/user/{userId}</code> - get list of chatroom that contain the user</li>
+                                    <li><code class="endpoint" role="button">/api/chatroom/{chatRoomId}</code> - get chatroom by id</li>
+                                    <li><code class="endpoint" role="button">/api/chatroom/filter/not-friends/{userId}</code> - get list of *users* are not with specific user in any chatroom</li>
+                                    <li><code class="endpoint" role="button">/api/chatroom/filter/friends/{userId}</code> - get list of *users* that with specific user in any chatroom</li>
+                                    <hr/>
+                                    <li><code class="endpoint" role="button">/api/messages</code> - get all messages</li>
+                                    <li><code class="endpoint" role="button">/api/messages/chatroom/{chatRoomId}</code> - get all messages in chatroom</li>
+                                    <li><code class="endpoint" role="button">/api/messages/chatroom/{chatRoomId}/last</code> - get the last message in chatroom</li>
+                                </ul>
+                            </details>
+                            <details>
+                                <summary>POST endpoints</summary>
+                                <ul>
+                                    <li><code class="endpoint chatroom-post" role="button">/api/chatroom</code> - create new chatroom (body require)</li>
+                                    <li><code class="endpoint" role="button">/api/chatroom/{chatRoomId}/user/{userId}</code> - add user to existing chatroom</li>
+                                    <li><code class="endpoint chatroom-post" role="button">/api/chatroom/create-add</code> - combine - create chatroom with users (body require)</li>
+                                    <hr/>
+                                    <li><code class="endpoint message-post" role="button">/api/messages</code> - create new message (body required)</li>
+                                </ul>
+                            </details>
+                            <details>
+                                <summary>DELETE endpoints</summary>
+                                <ul>
+                                    <li><code class="endpoint" role="button">api/users</code> - delete all users</li>
+                                    <li><code class="endpoint" role="button">api/users/email/{email}</code> - delete user by email</li>
+                                    <li><code class="endpoint" role="button">api/users/id/{userId}</code> - delete user by id</li>
+                                    <hr/>
+                                    <li><code class="endpoint" role="button">/api/chatroom</code> - delete all chat rooms</li>
+                                    <li><code class="endpoint" role="button">/api/chatroom/{chatRoomId}/user/{userId}</code> - remove user from chat room</li>
+                                    <li><code class="endpoint" role="button">/api/chatroom/{chatRoomId}</code> - delete chat room by id</li>
+                                    <hr/>
+                                    <li><code class="endpoint" role="button">/api/messages/{messageId}</code> - delete specific message</li>
+                                    <li><code class="endpoint" role="button">/api/messages/chatroom/{chatRoomId}</code> - delete all message from chat room</li>
+                                </ul>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-3 row p-0 m-0">
+                <div>
+                    <label for="request-result" class="primary-text mt-2">Result:</label>
+
+                    <textarea placeholder="Result here" id="request-result"
+                              readonly class="primary-bg form-control mt-2">
+
+                    </textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.slim.js"
+        integrity="sha256-7GO+jepT9gJe9LB4XFf8snVOjX3iYNb0FHYr5LI1N5c=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/cdbootstrap/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/cdbootstrap/js/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/cdbootstrap/js/cdb.min.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"
+        integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"
+        integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/ace-builds@1.22.1/src-min-noconflict/ace.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" class="secondary-bg">
+<head>
+    <title>About</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/css/color-set.css}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Bitter:wght@350&display=swap" rel="stylesheet">
+
+    <!-- script -->
+    <script th:src="@{/script/register.js}"></script>
+</head>
+<body class="bg-transparent">
+
+<div th:if="${param.error}"
+     class="alert alert-danger alert-dismissible fade show fixed-top text-center" role="alert">
+    <strong>Error!</strong> <span>Invalid username and password.</span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+
+<div class="m-0 p-0 br-transparent">
+    <div class="primary-bg">
+        <div class="bg-transparent" th:replace="~{fragments/header.html :: header}"></div>
+    </div>
+
+    <div class="container-fluid primary-text pt-5 bg-transparent">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="display-4">About Live Chat</h1>
+                <p class="lead">Unifying the World One Chat at a Time</p>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-lg-6">
+                <h2 class="h3 mb-3">What is Live Chat?</h2>
+                <p>Live Chat is an innovative platform designed to bring people from around the world together in one place. It's not just a chat room - it's a community. We created Live Chat with the idea of making communication simple, fast, and enjoyable. Here, you can meet new people, connect with friends, and share ideas in real-time.</p>
+            </div>
+
+            <div class="col-lg-6">
+                <h2 class="h3 mb-3">Why Choose Us?</h2>
+                <p>With a user-friendly interface and a plethora of features, Live Chat ensures an engaging and enriching chat experience. Enjoy live conversations, create your own chat rooms, and become part of the global Live Chat community. Thank you for choosing Live Chat, the future of communication.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>

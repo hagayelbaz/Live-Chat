@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+
+
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/css/color-set.css}"/>
+    <link rel="stylesheet" th:href="@{/css/chat-room.css}"/>
+    <link rel="stylesheet" th:href="@{/css/chat.css}"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cdbootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cdbootstrap/css/cdb.min.css"/>
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Permanent+Marker&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+    <script type="module" th:src="@{/script/ApiCalls/CallsHelper.js}"></script>
+    <script type="module" th:src="@{/script/ApiCalls/ChatRoomCalls.js}"></script>
+    <script type="module" th:src="@{/script/ApiCalls/MessagesCalls.js}"></script>
+    <script type="module" th:src="@{/script/ApiCalls/UsersCalls.js}"></script>
+    <script type="module" th:src="@{/script/chat-room.js}"></script>
+    <script type="module" th:src="@{/script/ErrorManager.js}"></script>
+    <script type="module" th:src="@{/script/ChatRoom/HashColor.js}"></script>
+    <script type="module" th:src="@{/script/ChatRoom/Service.js}"></script>
+    <script type="module" th:src="@{/script/ChatRoom/Variables.js}"></script>
+    <script type="module" th:src="@{/script/ChatRoom/MessageTemplate.js}"></script>
+
+
+    <title>Chat room</title>
+</head>
+<body>
+
+<div th:if="${param.error}"
+     class="alert alert-danger alert-dismissible fade show fixed-top text-center" role="alert">
+    <strong>Error!</strong> <span th:text="${param.error}"></span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<div class="container-fluid h-100 d-flex flex-column img-primary-bg" th:object="${user}">
+    <p hidden="hidden" id="my-email" th:text="${user.email}"></p>
+
+    <div th:replace="~{fragments/Error :: error-fragment}"></div>
+    <div th:replace="~{fragments/users-not-in-chatroom-modal :: users-not-in-chatroom-modal}"></div>
+    <div th:replace="~{fragments/all-users-modal :: all-users-modal}"></div>
+
+
+    <div class="row flex-grow-1 overflow-hidden">
+
+        <!-- Users List -->
+        <div class="col-12 col-md-3 d-md-block p-0 primary-bg primary-border" id="user-list-area">
+            <div class="list-group m-0 flex-column d-flex h-100" style="border-radius: 0;">
+                <!-- Header -->
+                <div class="m-3 mb-5 d-flex justify-content-between align-items-center">
+                    <h3 class="primary-text" th:text="${user.firstname}"></h3>
+
+                    <div>
+                        <a role="button"
+                           title="Go Home"
+                           href="/"
+                           class="fa-solid fa-house fa-xl accent-text-color text-decoration-none">
+                        </a>
+
+                        <i id="open-all-users-modal" role="button"
+                           title="add user to chat"
+                           class="ms-4 fa-solid fa-xl fa-circle-plus accent-text-color">
+                        </i>
+
+                        <a sec:authorize="hasRole('ADMIN')" id="admin-zone-button" role="button"
+                           title="admin zone"
+                           href="/admin"
+                           class="ms-4 nav-link fa-xl fa-sharp fa-solid fa-screwdriver-wrench accent-text-color p-0 m-0">
+                        </a>
+                    </div>
+                </div>
+
+                <hr class="m-0"/>
+
+                <div id="user-chat-rooms" class="overflow-auto" style="overflow-y: auto; max-height: 450px;">
+                    <!-- Autofill -->
+                </div>
+
+
+                <div class="mt-auto mb-2">
+                    <a class="btn accent-bg-button accent-shadow accent-text accent-border form-input" href="" id="logout">
+                        <i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>
+                        <span class="fa-lg">Logout</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Chat area -->
+        <div class="col-12 col-md-9 d-none d-md-block bg-transparent p-0 m-0 primary-border" id="chat-area">
+            <div class="bg-transparent text-light d-flex flex-column h-100">
+
+                <div class="primary-bg d-flex justify-content-between align-items-center chat-header">
+                    <div class="w-100 d-flex justify-content-between align-items-center">
+                        <div>
+                            <h3 class="mt-1 mb-1 ps-2" id="target-user-name">Nothing here</h3>
+                            <p class="mb-2 ps-2 text-muted" id="chat-room-users">example@example.com</p>
+                        </div>
+                        <i class="fa-solid fa-user-plus me-3" title="Add User To Chat" role="button" id="add-user-to-chatroom"></i>
+                    </div>
+
+                    <a class="d-md-none me-3" type="button" id="back-to-users">
+                        <i class="fa-solid fa-chevron-right fa-lg primary-text"></i>
+                    </a>
+                </div>
+
+                <hr class="p-0 m-0"/>
+
+                <!-- Chat messages -->
+                <div class="chat-messages d-flex flex-column-reverse flex-grow-1">
+                    <div id="chat-messages">
+                        <!-- Autofill -->
+                    </div>
+                </div>
+
+                <!-- Chat input -->
+                <div class="input-group w-100 rounded mt-auto position-relative chat-input">
+                    <div class="p-3 w-100">
+                        <input type="text" class="fa-lg form-control bg-transparent p-2 primary-text"
+                               id="send-message-input"
+                               placeholder="Hi, what's up?"
+                               aria-label="Type your message">
+                        <i class="fa fa-lg fa-paper-plane position-absolute top-50 end-0 translate-middle-y me-4"
+                           role="button"
+                           id="send-message-button"
+                           aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.slim.js"
+        integrity="sha256-7GO+jepT9gJe9LB4XFf8snVOjX3iYNb0FHYr5LI1N5c=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/cdbootstrap/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/cdbootstrap/js/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/cdbootstrap/js/cdb.min.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"
+        integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"
+        integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html>
+

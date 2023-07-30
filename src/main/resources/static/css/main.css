@@ -1,0 +1,96 @@
+*{
+    font-family: 'Bitter', serif;
+}
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+}
+
+.container {
+    text-align: center;
+}
+
+.bg{
+    background-image: url("../images/home.svg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
+.check-icon {
+    display: none;
+    opacity: 0;
+    transition: opacity .7s ease-in-out;
+}
+
+.valid-input:valid ~ .check-icon {
+    display: inline;
+    opacity: 1;
+}
+
+
+
+/* this is for forms */
+
+.form{
+    background-color: rgba(50,50,50,0.6);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 0 14px rgba(0,0,0,0.4);
+}
+
+.form-control-holder {
+    position: relative;
+}
+
+.form-input {
+    background-color: transparent !important;
+    border: 0 !important;
+    color: white !important;
+    border-bottom: 3px solid #dfdfdf !important;
+    outline: none;
+    width: 100%;
+}
+
+.form-label {
+    cursor: text;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #aaaaaa;
+    transition: .35s ease-in-out;
+    font-size: 16px;
+}
+
+.form-input:focus + .form-label,
+.form-input:not(:placeholder-shown) + .form-label {
+    top: -25px;
+    font-size: 14px;
+    pointer-events: none;
+}
+
+.invalid-icon {
+    display: none !important;
+}
+
+.valid-input:invalid:focus ~ .invalid-icon {
+    display: inline !important;
+    transition: opacity .7s ease-in-out;
+}
+
+.form-input:focus:invalid{
+    border-bottom-color: red !important;
+}
+
+/* avoid auto fill styling*/
+.form-input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+    -webkit-text-fill-color: white !important;
+    font-size: 18px !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+

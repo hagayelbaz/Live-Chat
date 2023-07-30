@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/css/color-set.css}"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Permanent+Marker&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+    <!-- script -->
+    <script th:src="@{/script/register.js}"></script>
+
+
+    <title>Register</title>
+</head>
+<body class="img-primary-bg">
+
+<div th:if="${param.error}"
+     class="alert alert-danger alert-dismissible fade show fixed-top text-center" role="alert">
+    <strong>Error!</strong> <span th:text="${param.error}"></span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<section class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="row w-100 justify-content-center">
+        <div class="col-md-8">
+            <div class="text-light">
+                <div class="form position-relative">
+
+                    <div class="position-absolute top-0 end-0 m-3">
+                        <a href="../" class="btn p-0 text-light fa-solid fa-circle-xmark fa-xl"></a>
+                    </div>
+
+                    <h1>Register Now!</h1>
+
+                    <form class="mt-5" action="#" th:action="@{/auth/register}" method="post" th:object="${user}">
+
+                        <div th:if="${#fields.hasErrors('*')}"
+                             class="alert alert-danger alert-dismissible fade show fixed-top text-center" role="alert">
+                            <strong>Error!</strong> <span th:each="err : ${#fields.errors('*')}"
+                                                          th:text="${err}"></span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+
+                        <div class="form-control-holder mt-3 mt-md-3 position-relative">
+                            <input type="text" class="form-input valid-input" id="firstname" th:field="*{firstname}"
+                                   pattern=".+"
+                                   placeholder=" " required>
+                            <label for="firstname" class="form-label">First Name</label>
+                            <i class="fa-solid fa-circle-check text-success position-absolute end-0 check-icon"></i>
+                            <i class="fa-solid fa-circle-xmark text-danger position-absolute end-0 invalid-icon"></i>
+                        </div>
+
+                        <div class="form-control-holder mt-4 mt-md-5">
+                            <input type="text" class="form-input valid-input" id="lastname" th:field="*{lastname}"
+                                   pattern=".+"
+                                   placeholder=" " required>
+                            <label for="lastname" class="form-label">Last Name</label>
+                            <i class="fa-solid fa-circle-check text-success position-absolute end-0 check-icon"></i>
+                            <i class="fa-solid fa-circle-xmark text-danger position-absolute end-0 invalid-icon"></i>
+                        </div>
+
+                        <div class="form-control-holder mt-4 mt-md-5">
+                            <input type="email" class="form-input valid-input" id="email" th:field="*{email}"
+                                   pattern=".+"
+                                   placeholder=" " required>
+                            <label for="email" class="form-label">Email</label>
+                            <i class="fa-solid fa-circle-check text-success position-absolute end-0 check-icon"></i>
+                            <i class="fa-solid fa-circle-xmark text-danger position-absolute end-0 invalid-icon"></i>
+                        </div>
+
+                        <div class="form-control-holder mt-4 mt-md-5">
+                            <input type="password" class="form-input valid-input" id="password" th:field="*{password}"
+                                   pattern=".+"
+                                   placeholder=" " required>
+                            <label for="password" class="form-label">Password</label>
+                            <i class="fa-solid fa-circle-check text-success position-absolute end-0 check-icon"></i>
+                            <i class="fa-solid fa-circle-xmark text-danger position-absolute end-0 invalid-icon"></i>
+                        </div>
+
+                        <div class="form-control-holder mt-4 mt-md-5">
+                            <input type="password" class="form-input valid-input" id="confirmPassword"
+                                   pattern=".+" placeholder=" " required>
+                            <label for="confirmPassword" class="form-label">Confirm Password</label>
+                            <i class="fa-solid fa-circle-check text-success position-absolute end-0 check-icon"></i>
+                            <i class="fa-solid fa-circle-xmark text-danger position-absolute end-0 invalid-icon"></i>
+                        </div>
+
+                        <button type="submit" class="btn accent-bg-button accent-text mt-4 ps-5 pe-5">Register</button>
+                        <div>
+                            <p class="mt-1">Already have an account?
+                                <a href="/auth/login" class="secondary-text">Login</a>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
